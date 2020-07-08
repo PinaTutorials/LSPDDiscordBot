@@ -15,8 +15,14 @@ bot.on('message', message => {
 
        message.reply('pong');
 
-       }
+    }
+	
+	else if (message.content === 'you') {
+		
+		message.reply('suck!');
 
+	}
+	
 });
 
 bot.login(process.env.BOT_TOKEN);
