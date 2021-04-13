@@ -1,0 +1,20 @@
+{
+  "name": "BadWordCounter",
+  "description": "Counts Bad Words",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "Pinossaur",
+  "dependencies": {
+    "discord.io": "^2.5.3",
+    "discord.js": "^11.6.4",
+    "mysql": "^2.18.1",
+    "mysql-sync-query": "^1.0.4",
+    "request": "2.81.0",
+    "sync-mysql": "^3.0.1",
+    "thread-sleep": "^2.2.0",
+    "winston": "^3.3.3"
+  }
+}
