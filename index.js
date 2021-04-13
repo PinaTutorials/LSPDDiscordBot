@@ -59,7 +59,7 @@ async function badWordFound(message, count){
 		var res = await databaseObject.executeQuery("SELECT occurance FROM User WHERE user = " + message.author.id);
 		await databaseObject.executeQuery("UPDATE User SET occurance = " + (res[0].occurance + count) + " WHERE user = " + message.author.id);
 		if(parseInt(count) >= 5){
-			message.channel.send("<@" + message.author.id + "> You said a total of " + (res[0].occurance + count) + " bad words.");
+			message.channel.send("<@" + message.author.id + "> You said a bad word!");
 		}
 		else{
 			if((parseInt(res[0].occurance % 5) > (parseInt(res[0].occurance) + count) % 5 )){
