@@ -41,7 +41,7 @@ bot.on('message', message => {
 	finalCount = 0;
 });
 
-bot.login(BOT_KEY);
+bot.login(process.env.BOT_KEY);
 
 async function badWordFound(message, count){
 	var res = await databaseObject.executeQuery("SELECT COUNT(*) AS count FROM User WHERE user = " + message.author.id);
