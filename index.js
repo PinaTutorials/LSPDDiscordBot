@@ -59,7 +59,7 @@ bot.on('message', async message => {
 	else{
 		for(var i = 0; i < fileWords.length; i++){
 			if(messageString === fileWords[i].replace(/(\r\n|\n|\r)/gm, "")){
-				if(fileWords[i] != ''){
+				if(fileWords[i] != '' && fileWords[i].matches"[\\n\\r]+"){
 					console.log("yes");
 					finalCount++;
 				}
