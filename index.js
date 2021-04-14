@@ -48,6 +48,7 @@ bot.on('message', message => {
 		}
 		if(finalCount != 0){		
 			badWordFound(message, finalCount);
+			message.react("🙊");
 		}
 		finalCount = 0;
 	}
@@ -79,5 +80,4 @@ async function badWordFound(message, count){
 			}
 		}
 	}
-	message.react("🙊");
 }
