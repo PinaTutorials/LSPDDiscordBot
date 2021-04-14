@@ -44,10 +44,7 @@ bot.on('message', async message => {
 		var string = "Words currently being accounted for: ";
 		for(var i = 0; i < fileWords.length; i++){
 			if(fileWords[i].length > 1){
-				if(fileWords.length == (i + 2)){
-					string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + " and ";
-				}
-				else if(fileWords.length != (i + 1)){
+				if(fileWords.length != (i + 1)){
 					string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ", ";
 				}
 				else{
