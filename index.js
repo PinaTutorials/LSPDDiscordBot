@@ -54,7 +54,7 @@ bot.on('message', async message => {
 	}
 });
 
-bot.login("NTM4NjY1ODM2OTExNzg4MDM5.XEw1pw.LnDQcgfQsTDFuTqyeBYgnPUNV_Q");
+bot.login(process.env.BOT_KEY);
 
 async function checkForBadWord(badWord){
 	for(var i = 0; i < fileWords.length; i++){
