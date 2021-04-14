@@ -43,15 +43,16 @@ bot.on('message', async message => {
 	else if(message.content.toLowerCase() === "!listbadwords"){
 		var string = "Words currently being accounted for: ";
 		for(var i = 0; i < fileWords.length; i++){
-			console.log(fileWords.length + " = " + i);
-			if(fileWords.length == (i + 2)){
-				string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + " and ";
-			}
-			else if(fileWords.length != (i + 1)){
-				string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ", ";
-			}
-			else{
-				string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ".";
+			if(fileWords[i].length > 1){
+				if(fileWords.length == (i + 2)){
+					string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + " and ";
+				}
+				else if(fileWords.length != (i + 1)){
+					string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ", ";
+				}
+				else{
+					string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ".";
+				}
 			}
 		}
 		message.channel.send(string).then(msg => {msg.delete(10000)});
