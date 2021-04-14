@@ -15,30 +15,42 @@ bot.on('message', message => {
 		return;
 	}
 	
-	var string = message + '';
-	
-	var words = string.split(" ");
-	
-	var count = words.length;
-	
-	for(var i = 0; i < count; i++){
-		switch(words[i].toLowerCase()){
-			case 'nigga': finalCount++; break;
-			case 'preto': finalCount++; break;
-			case 'negro': finalCount++; break;
-			case 'nigger': finalCount++; break;
-			case 'niggers': finalCount++; break;
-			case 'n4gger': finalCount++; break;
-			case 'n4gger': finalCount++; break;
-			case 'bai': if(words[i + 1] == 'bunda') finalCount++; break;
-			case 'nice': if(words[i + 1] == 'cock') finalCount++; break;
-			case 'tem': if(words[i + 1] == 'glema') finalCount++; break;
+	if(message.content.toLowerCase() === "!badwords"){
+		var res = await databaseObject.executeQuery("SELECT COUNT(*) AS count FROM User WHERE user = " + message.author.id);
+		if(res[0].count == 0){
+			var res1 = await databaseObject.executeQuery("SELECT occurance FROM User WHERE user = " + message.author.id);
+			message.channel.send("<@" + message.author.id + "> You said a total of " + res[0].occurance + " bad words.");
+		}
+		else{
+			message.channel.send("<@" + message.author.id + "> You haven't said a bad word!");
 		}
 	}
-	if(finalCount != 0){		
-		badWordFound(message, finalCount);
+	else{
+		var string = message + '';
+
+		var words = string.split(" ");
+
+		var count = words.length;
+
+		for(var i = 0; i < count; i++){
+			switch(words[i].toLowerCase()){
+				case 'nigga': finalCount++; break;
+				case 'preto': finalCount++; break;
+				case 'negro': finalCount++; break;
+				case 'nigger': finalCount++; break;
+				case 'niggers': finalCount++; break;
+				case 'n4gger': finalCount++; break;
+				case 'n4gger': finalCount++; break;
+				case 'bai': if(words[i + 1] == 'bunda') finalCount++; break;
+				case 'nice': if(words[i + 1] == 'cock') finalCount++; break;
+				case 'tem': if(words[i + 1] == 'glema') finalCount++; break;
+			}
+		}
+		if(finalCount != 0){		
+			badWordFound(message, finalCount);
+		}
+		finalCount = 0;
 	}
-	finalCount = 0;
 });
 
 bot.login(process.env.BOT_KEY);
