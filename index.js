@@ -7,6 +7,7 @@ const bot = new Discord.Client();
 
 var finalCount = 0;
 var fileString = fs.readFileSync("./badWords.txt", "utf-8").toLowerCase();
+var areWordsBanned = fs.readFileSync("./areWordsBanned.txt", "utf-8").toLowerCase();
 var fileWords = fileString.split("\n");
 
 databaseObject.connectLocal("sql11.freemysqlhosting.net", 3306, "sql11405372", "Kjct3ReGFb");
@@ -23,8 +24,29 @@ bot.on('message', async message => {
 		return;
 	}
 	
+	if(messageString.includes("\"") || messageString.includes("'")){
+		if(fileString.includes(messageString)){
+			message.delete(0);
+		}
+		else{
+			return;
+		}
+	}
+	
 	if(message.content.toLowerCase() === "!badwords"){
 		await badWords(message); 
+	}
+	else if(message.content.toLowerCase() === "!togglewordban"){
+		if(areWordsBanned === "false"){
+			areWordsBanned = "true";
+			fs.writeFileSync('./areWordsBanned.txt', "true");
+			message.channel.send("Bad words will be deleted from now on!");
+		}
+		else{
+			areWordsBanned = "false";
+			fs.writeFileSync('./areWordsBanned.txt', "false");
+			message.channel.send("Bad words will not be deleted from now on!");
+		}	
 	}
 	else if(message.content.toLowerCase().includes("!addbadword")){
 		var badWordToAdd = messageString.slice(messageString.indexOf(' ') + 1, messageString.length).trim();
@@ -38,7 +60,7 @@ bot.on('message', async message => {
 		}
 	}
 	else if(message.content.toLowerCase() === "!helpwords"){
-		message.channel.send("List of commands: \n-!addbadword: Adds a word to be counted, OBS: I can't remove it, talk to Creator to remove a word;\n-!badwords: Lists your bad word counter;\n-!listbadwords: Lists all words being accounted for.").then(msg => {msg.delete(60000)});
+		message.channel.send("List of commands: \n-!addbadword: Adds a word to be counted, OBS: I can't remove it, talk to Creator to remove a word;\n-!badwords: Lists your bad word counter;\n-!listbadwords: Lists all words being accounted for;\n-!togglewordban: Toggles whether filtered words should get deleted or not.").then(msg => {msg.delete(60000)});
 	}
 	else if(message.content.toLowerCase() === "!listbadwords"){
 		var string = "Words currently being accounted for: ";
@@ -65,7 +87,12 @@ bot.on('message', async message => {
 		}
 		if(finalCount != 0){		
 			badWordFound(message, finalCount);
-			message.react("🙊");
+			if(areWordsBanned === "true"){
+				message.delete(0);
+			}
+			else{			
+				message.react("🙊");
+			}
 		}
 		finalCount = 0;
 		
