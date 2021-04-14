@@ -38,7 +38,7 @@ bot.on('message', async message => {
 		}
 	}
 	else if(message.content.toLowerCase() === "!helpwords"){
-		message.channel.send("List of commands: \n-!addbadword: Adds a word to be counted, OBS: I can't remove it, talk to Creator to remove a word;\n-!badwords: Lists your bad word counter;\n-!listbadwords: Lists all words being accounted for.");
+		message.channel.send("List of commands: \n-!addbadword: Adds a word to be counted, OBS: I can't remove it, talk to Creator to remove a word;\n-!badwords: Lists your bad word counter;\n-!listbadwords: Lists all words being accounted for.").then(msg => {msg.delete(60000)});
 	}
 	else if(message.content.toLowerCase() === "!listbadwords"){
 		var string = "Words currently being accounted for: ";
@@ -54,7 +54,7 @@ bot.on('message', async message => {
 				string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ".";
 			}
 		}
-		message.channel.send(string);
+		message.channel.send(string).then(msg => {msg.delete(10000)});
 	}
 	else{
 		for(var i = 0; i < fileWords.length; i++){
