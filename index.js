@@ -49,17 +49,17 @@ async function badWordFound(message, count){
 		var res = await databaseObject.executeQuery("INSERT INTO User (user, occurance) VALUES (" + message.author.id + ", " + count + ")");
 		niggerCount = count;
 		if(parseInt(count) == 1){
-			message.channel.send("<@" + message.author.id + "> You said a total of " + niggerCount + " bad word.");
+			message.channel.send("<@" + message.author.id + "> You said a bad word!.");
 		}
 		else{
-			message.channel.send("<@" + message.author.id + "> You said a total of " + niggerCount + " bad word.");
+			message.channel.send("<@" + message.author.id + "> You said a total of " + niggerCount + " bad words.");
 		}
 	}
 	else{
 		var res = await databaseObject.executeQuery("SELECT occurance FROM User WHERE user = " + message.author.id);
 		await databaseObject.executeQuery("UPDATE User SET occurance = " + (res[0].occurance + count) + " WHERE user = " + message.author.id);
 		if(parseInt(count) >= 5){
-			message.channel.send("<@" + message.author.id + "> You said a bad word!");
+			message.channel.send("<@" + message.author.id + "> You said a total of " + (res[0].occurance + count) + " bad words.");
 		}
 		else{
 			if((parseInt(res[0].occurance % 5) > (parseInt(res[0].occurance) + count) % 5 )){
@@ -67,4 +67,5 @@ async function badWordFound(message, count){
 			}
 		}
 	}
+	message.react(":speak_no_evil:");
 }
