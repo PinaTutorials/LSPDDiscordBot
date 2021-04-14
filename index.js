@@ -56,7 +56,7 @@ bot.on('message', async message => {
 	}
 	else{
 		for(var i = 0; i < fileWords.length; i++){
-			if(messageString === fileWords[i].replace(/(\r\n|\n|\r)/gm, "")){
+			if(messageString.toLowerCase() === fileWords[i].replace(/(\r\n|\n|\r)/gm, "")){
 				if(fileWords[i].length > 1){
 					console.log("yes");
 					finalCount++;
