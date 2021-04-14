@@ -11,6 +11,10 @@ var fileWords = fileString.split("\n");
 
 databaseObject.connectLocal("sql11.freemysqlhosting.net", 3306, "sql11405372", "Kjct3ReGFb");
 
+bot.on('ready', () => {
+        bot.user.setActivity('!helpwords', { type: 'PLAYING' })
+})
+
 bot.on('message', async message => {
 	
 	var messageString = message + '';
@@ -34,11 +38,27 @@ bot.on('message', async message => {
 		}
 	}
 	else if(message.content.toLowerCase() === "!helpwords"){
-		message.channel.send("List of commands: \n-!addbadword: Adds a word to be counted, OBS: I can't remove it, talk to Creator to remove a word");
+		message.channel.send("List of commands: \n-!addbadword: Adds a word to be counted, OBS: I can't remove it, talk to Creator to remove a word;\n-!badwords: Lists your bad word counter;\n-!listbadwords: Lists all words being accounted for.");
+	}
+	else if(message.content.toLowerCase() === "!listbadwords"){
+		var string = "Words currently being accounted for: ";
+		for(var i = 0; i < fileWords.length; i++){
+			console.log(fileWords.length + " = " + i);
+			if(fileWords.length == (i + 2)){
+				string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + " and ";
+			}
+			else if(fileWords.length != (i + 1)){
+				string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ", ";
+			}
+			else{
+				string += "\"" + fileWords[i].replace(/(\r\n|\n|\r)/gm, "") + "\"" + ".";
+			}
+		}
+		message.channel.send(string);
 	}
 	else{
 		for(var i = 0; i < fileWords.length; i++){
-			if(messageString.includes(fileWords[i].replace(/(\r\n|\n|\r)/gm, ""))){
+			if(messageString === fileWords[i].replace(/(\r\n|\n|\r)/gm, "")){
 				if(fileWords[i] != ''){
 					console.log("yes");
 					finalCount++;
