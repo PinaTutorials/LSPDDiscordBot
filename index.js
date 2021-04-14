@@ -67,5 +67,5 @@ async function badWordFound(message, count){
 			}
 		}
 	}
-	message.react(":speak_no_evil:");
+	message.react("🙊");
 }
